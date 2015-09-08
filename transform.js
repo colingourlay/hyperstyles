@@ -4,7 +4,7 @@ var isVText = require('virtual-dom/vnode/is-vtext');
 var isWidget = require('virtual-dom/vnode/is-widget');
 var isVThunk = require('virtual-dom/vnode/is-thunk');
 var parseTag = require('virtual-dom/virtual-hyperscript/parse-tag');
-var reduce = require('lodash/collection/reduce');
+var reduce = require('lodash.reduce');
 
 function transform(styles, tagName, properties, children) {
 	var props, classes, tag, keys;
