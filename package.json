@@ -1,0 +1,25 @@
+{
+  "name": "hyperstyles",
+  "version": "1.0.0",
+  "description": "A wrapper for virtual-hyperscript that enables CSS Modules support.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape tests"
+  },
+  "keywords": [
+    "virtual-dom",
+    "css-modules",
+    "virtual-hyperscript",
+    "icss"
+  ],
+  "author": "Colin Gourlay",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "virtual-dom": "^2.1.1",
+    "x-is-array": "^0.1.0"
+  },
+  "devDependencies": {
+    "tape": "^4.2.0"
+  }
+}
