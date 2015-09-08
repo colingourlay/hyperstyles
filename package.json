@@ -1,7 +1,7 @@
 {
   "name": "hyperstyles",
-  "version": "1.0.2",
-  "description": "A wrapper for virtual-hyperscript that enables CSS Modules support.",
+  "version": "1.0.3",
+  "description": "A wrapper for virtual-hyperscript that transparently applies CSS Modules.",
   "main": "index.js",
   "scripts": {
     "test": "tape tests"

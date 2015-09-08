@@ -1,6 +1,6 @@
 # hyperstyles
 
-A wrapper for virtual-hyperscript that enables [CSS Modules](https://github.com/css-modules/css-modules) support
+A wrapper for [virtual-hyperscript](https://github.com/Matt-Esch/virtual-dom/tree/master/virtual-hyperscript) that transparently applies [CSS Modules](https://github.com/css-modules/css-modules)
 
 ```js
 var h = require('hyperstyles')(require('./car.css'));
