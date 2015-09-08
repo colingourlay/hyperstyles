@@ -2,6 +2,10 @@
 
 A wrapper for [virtual-hyperscript](https://github.com/Matt-Esch/virtual-dom/tree/master/virtual-hyperscript) that transparently applies [CSS Modules](https://github.com/css-modules/css-modules)
 
+```
+$ npm install hyperstyles
+```
+
 ```js
 var h = require('hyperstyles')(require('./car.css'));
 
