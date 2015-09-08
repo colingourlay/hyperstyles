@@ -1,0 +1,97 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose node symlink /usr/local/bin/node
+5 verbose publish [ '.' ]
+6 silly cache add args [ '.', null ]
+7 verbose cache add spec .
+8 silly cache add parsed spec { raw: '.',
+8 silly cache add   scope: null,
+8 silly cache add   name: null,
+8 silly cache add   rawSpec: '.',
+8 silly cache add   spec: '/Users/gourlayc4n/development/projects/hyperstyles',
+8 silly cache add   type: 'directory' }
+9 verbose addLocalDirectory /Users/gourlayc4n/.npm/hyperstyles/1.0.0/package.tgz not in flight; packing
+10 verbose tar pack [ '/Users/gourlayc4n/.npm/hyperstyles/1.0.0/package.tgz',
+10 verbose tar pack   '/Users/gourlayc4n/development/projects/hyperstyles' ]
+11 verbose tarball /Users/gourlayc4n/.npm/hyperstyles/1.0.0/package.tgz
+12 verbose folder /Users/gourlayc4n/development/projects/hyperstyles
+13 info prepublish hyperstyles@1.0.0
+14 verbose addLocalTarball adding from inside cache /Users/gourlayc4n/.npm/hyperstyles/1.0.0/package.tgz
+15 silly cache afterAdd hyperstyles@1.0.0
+16 verbose afterAdd /Users/gourlayc4n/.npm/hyperstyles/1.0.0/package/package.json not in flight; writing
+17 verbose afterAdd /Users/gourlayc4n/.npm/hyperstyles/1.0.0/package/package.json written
+18 silly publish { name: 'hyperstyles',
+18 silly publish   version: '1.0.0',
+18 silly publish   description: 'A wrapper for virtual-hyperscript that enables CSS Modules support.',
+18 silly publish   main: 'index.js',
+18 silly publish   scripts: { test: 'tape tests' },
+18 silly publish   keywords: [ 'virtual-dom', 'css-modules', 'virtual-hyperscript', 'icss' ],
+18 silly publish   author: { name: 'Colin Gourlay' },
+18 silly publish   license: 'ISC',
+18 silly publish   repository:
+18 silly publish    { type: 'git',
+18 silly publish      url: 'git+https://github.com/colingourlay/hyperstyles.git' },
+18 silly publish   dependencies:
+18 silly publish    { lodash: '^3.10.1',
+18 silly publish      'virtual-dom': '^2.1.1',
+18 silly publish      'x-is-array': '^0.1.0' },
+18 silly publish   devDependencies: { tape: '^4.2.0' },
+18 silly publish   readme: '# hyperstyles\n\nA wrapper for virtual-hyperscript that enables [CSS Modules](https://github.com/css-modules/css-modules) support\n\n## Usage\n\nTo use CSS Modules, you\'ll need to set up your module bundler to load [Interoperable CSS](https://github.com/css-modules/icss).\n\n* [webpack setup example](https://github.com/css-modules/webpack-demo)\n* [browserify setup example](https://github.com/css-modules/browserify-demo)\n\nOnce your build process is configured you can use *hyperstyles*!\n\nIn ES2015:\n\n\timport styles from \'./car.css\';\n\timport hyperstyles from \'hyperstyles\';\n\n\tconst h = hyperstyles(styles);\n\n\tfunction render() {\n\t    return h(\'div\', {styleName: \'car\'}, [\n\t        h(\'div\', {styleName: \'front-door\'}),\n\t        h(\'div\', {styleName: \'back-door\'})\n\t    ]);\n\t}\n\n\texport default render;\n\nIn ES5:\n\n\tvar hyperstyles = require(\'hyperstyles\');\n\tvar styles = require(\'./car.css\');\n\tvar h = hyperstyles(styles);\n\n\tfunction render() {\n\t    return h(\'div\', {styleName: \'car\'}, [\n\t        h(\'div\', {styleName: \'front-door\'}),\n\t        h(\'div\', {styleName: \'back-door\'})\n\t    ]);\n\t}\n\n\tmodule.exports = render;\n\nOr less-verbosely:\n\n\tvar h = require(\'hyperstyles\')(require(\'./car.css\'));\n\n\tmodule.exports = function render() {\n\t    return h(\'div.car\', [\n\t        h(\'div.front-door\'),\n\t        h(\'div.back-door\')\n\t    ]);\n\t};',
+18 silly publish   readmeFilename: 'README.md',
+18 silly publish   gitHead: '19fe0fba3cdf0457b463804b8feb8ce5b65b4fb2',
+18 silly publish   bugs: { url: 'https://github.com/colingourlay/hyperstyles/issues' },
+18 silly publish   homepage: 'https://github.com/colingourlay/hyperstyles#readme',
+18 silly publish   _id: 'hyperstyles@1.0.0',
+18 silly publish   _shasum: '34f276a1ef74be72e29bebab98b618f3beb56c84',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name hyperstyles
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/hyperstyles
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /Users/gourlayc4n/.npm/hyperstyles/1.0.0/package.tgz
+26 verbose request uri https://registry.npmjs.org/hyperstyles
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 3:10:34 PM
+29 verbose request id 44ddf817c7581ffd
+30 http request PUT https://registry.npmjs.org/hyperstyles
+31 http 403 https://registry.npmjs.org/hyperstyles
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=60',
+32 verbose headers   'content-length': '95',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Tue, 08 Sep 2015 05:10:36 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-syd1621-SYD',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1441689035.097657,VS0,VE999' }
+33 verbose request invalidating /Users/gourlayc4n/.npm/registry.npmjs.org/hyperstyles on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 1.0.0." : hyperstyles
+35 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+35 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+35 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:354:22)
+35 verbose stack     at Request.emit (events.js:110:17)
+35 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1207:14)
+35 verbose stack     at Request.emit (events.js:129:20)
+35 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1153:12)
+35 verbose stack     at IncomingMessage.emit (events.js:129:20)
+35 verbose stack     at _stream_readable.js:908:16
+35 verbose stack     at process._tickCallback (node.js:355:11)
+36 verbose statusCode 403
+37 verbose pkgid hyperstyles
+38 verbose cwd /Users/gourlayc4n/development/projects/hyperstyles
+39 error Darwin 14.5.0
+40 error argv "node" "/usr/local/bin/npm" "publish"
+41 error node v0.12.7
+42 error npm  v2.11.3
+43 error code E403
+44 error "You cannot publish over the previously published version 1.0.0." : hyperstyles
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]
