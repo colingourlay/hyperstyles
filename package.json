@@ -1,6 +1,6 @@
 {
   "name": "hyperstyles",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Transparently apply CSS Modules to hyperscript-compatible DOM builders, such as virtual-hyperscript and React.",
   "main": "index.js",
   "scripts": {
