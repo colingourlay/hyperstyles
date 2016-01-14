@@ -79,9 +79,9 @@ var h = hyperstyles(createElement, styles);
 
 var Car = React.createClass({
     render: function () {
-        return h('div', {styleName: 'root'}, [
-            h('div', {styleName: 'front-door'}),
-            h('div', {styleName: 'back-door'})
+        return h('div.root', [
+            h('div.front-door'),
+            h('div.back-door')
         ]);
     }
 });
@@ -97,9 +97,9 @@ If you just supply a single argument (a hyperscript-compatible function) to hype
 
 ```js
 var vh = require('virtual-dom/virtual-hyperscript');
-var partial = require('hyperstyles')(vh);
-var hCar = partial(require('./car.css'));
-var hBike = partial(require('./bike.css'));
+var hyper = require('hyperstyles')(vh);
+var hCar = hyper(require('./car.css'));
+var hBike = hyper(require('./bike.css'));
 
 function renderCar() {
     return hCar('div.root', [
@@ -120,7 +120,7 @@ This is useful if you expose your partially applied function as a module, which 
 
 ### `tagName` shorthand
 
-If you are using `virtual-hyperscript`, you can use the `tagName` shorthand, as demonstrated in the first example above. Any CSS classes you put the shorthand format will be treated as if you passed them is as the `styleName` property rather than the `className` property, and as such, will be transformed.
+You can use the `tagName` shorthand (as demonstrated in the first example) to quickly set the `id` and `className` properties on the node you are creating. Any CSS classes you put the shorthand format will be treated as if you passed them in as the `styleName` property rather than the `className` property, and as such, will be transformed by hyperstyles. The shorthand will even work with React, as long as you're not using JSX.
 
 ## License
 
