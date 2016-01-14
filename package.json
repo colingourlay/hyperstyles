@@ -1,15 +1,16 @@
 {
   "name": "hyperstyles",
   "version": "1.0.3",
-  "description": "A wrapper for virtual-hyperscript that transparently applies CSS Modules.",
+  "description": "Transparently apply CSS Modules to hyperscript-compatible DOM builders, such as virtual-hyperscript and React.",
   "main": "index.js",
   "scripts": {
     "test": "tape tests"
   },
   "keywords": [
-    "virtual-dom",
     "css-modules",
     "virtual-hyperscript",
+    "virtual-dom",
+    "react",
     "icss"
   ],
   "author": "Colin Gourlay",
@@ -19,11 +20,13 @@
     "url": "https://github.com/colingourlay/hyperstyles"
   },
   "dependencies": {
-    "lodash.reduce": "^3.1.2",
-    "virtual-dom": "^2.1.1",
+    "browser-split": "0.0.1",
     "x-is-array": "^0.1.0"
   },
   "devDependencies": {
-    "tape": "^4.2.0"
+    "hyperscript": "^1.4.7",
+    "react": "^0.14.6",
+    "tape": "^4.2.0",
+    "virtual-dom": "^2.1.1"
   }
 }

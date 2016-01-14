@@ -1,10 +1,5 @@
 var isArray = require('x-is-array');
-var isVNode = require('virtual-dom/vnode/is-vnode');
-var isVText = require('virtual-dom/vnode/is-vtext');
-var isWidget = require('virtual-dom/vnode/is-widget');
-var isVThunk = require('virtual-dom/vnode/is-thunk');
-var parseTag = require('virtual-dom/virtual-hyperscript/parse-tag');
-var reduce = require('lodash.reduce');
+var parseTag = require('./parseTag');
 
 function transform(styles, tagName, properties, children) {
 	var props, classes, tag, keys;
@@ -18,7 +13,7 @@ function transform(styles, tagName, properties, children) {
 
 	classes = props.className ? props.className.split(' ') : [];
 	props.className = '';
-	
+
 	tag = parseTag(tagName, props).toLowerCase();
 
 	if (props.className) {
@@ -28,7 +23,7 @@ function transform(styles, tagName, properties, children) {
 	keys = props.styleName ? props.styleName.split(' ') : [];
 	props['styleName'] = undefined;
 
-	props.className = reduce(keys, function (classes, styleName) {
+	props.className = keys.reduce(function (classes, styleName) {
 		if (!styles[styleName]) {
 			throw new Error('"' + styleName + '" doesn\'t exist in this CSS Module');
 		}
@@ -44,12 +39,14 @@ function transform(styles, tagName, properties, children) {
 	return [tag, props, children];
 }
 
-function isChild(x) {
-    return isVNode(x) || isVText(x) || isWidget(x) || isVThunk(x);
-}
-
 function isChildren(x) {
-    return typeof x === 'string' || isArray(x) || isChild(x);
+    // This is as strict as we can be without
+    // library-specific 'node' detection
+    return typeof x === 'string' ||
+        isArray(x) ||
+        typeof x === 'number' ||
+        typeof x === 'function' ||
+        (typeof x === 'object' && x.type);
 }
 
 module.exports = transform;
