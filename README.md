@@ -50,7 +50,7 @@ In JSX, using `React.createElement`:
 ```jsx
 /** @jsx h */
 
-var React = require('react').createElement;
+var React = require('react');
 var styles = require('./car.css');
 var hyperstyles = require('hyperstyles');
 var h = hyperstyles(React.createElement, styles);
@@ -72,10 +72,10 @@ module.exports = Car;
 In ES5, using `React.createElement`:
 
 ```js
-var createElement = require('react').createElement;
+var React = require('react');
 var styles = require('./car.css');
 var hyperstyles = require('hyperstyles');
-var h = hyperstyles(createElement, styles);
+var h = hyperstyles(React.createElement, styles);
 
 var Car = React.createClass({
     render: function () {
