@@ -19,10 +19,6 @@
     "type": "git",
     "url": "https://github.com/colingourlay/hyperstyles"
   },
-  "dependencies": {
-    "browser-split": "0.0.1",
-    "x-is-array": "^0.1.0"
-  },
   "devDependencies": {
     "hyperscript": "^1.4.7",
     "react": "^0.14.6",

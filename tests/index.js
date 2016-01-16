@@ -2,7 +2,7 @@ var test = require('tape');
 var transform = require('../transform');
 var hyperstyles = require('../');
 
-var reactCreateElement = require('react').createElement;
+var React = require('react');
 var virtualHyperscript = require('virtual-dom/virtual-hyperscript');
 var virtualHyperscriptSVG = require('virtual-dom/virtual-hyperscript/svg');
 var hyperscript = require('hyperscript');
@@ -16,7 +16,7 @@ test('transform:pass-through', function (t) {
 	t.plan(5);
 
 	t.equal(
-		transform(exampleStyles, 'div')[1].className,
+		transform(exampleStyles, 'div')[1],
 		undefined
 	);
 
@@ -26,7 +26,7 @@ test('transform:pass-through', function (t) {
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div', exampleChildren)[2],
+		transform(exampleStyles, 'div', exampleChildren)[1],
 		'text'
 	);
 
@@ -77,12 +77,7 @@ test('transform:tagName', function (t) {
 
 	t.equal(
 		output[0],
-		'div'
-	);
-
-	t.equal(
-		output[1].id,
-		'x'
+		'div#x'
 	);
 
 	t.equal(
@@ -93,6 +88,11 @@ test('transform:tagName', function (t) {
 	t.equal(
 		transform(exampleStyles, 'div.thing', {className: 'blah'})[1].className,
 		'blah thing__gf7sdfg78ds'
+	);
+
+	t.equal(
+		transform(exampleStyles, 'div.thing', {className: 'blah', styleName: 'thing'})[1].className,
+		'blah thing__gf7sdfg78ds thing__gf7sdfg78ds'
 	);
 });
 
@@ -221,77 +221,139 @@ test('virtual-hyperscript/svg', function (t) {
 	);
 });
 
-
 test('react', function (t) {
-	var h = hyperstyles(reactCreateElement, exampleStyles);
+	var h, Thing;
 
-	t.plan(12);
+	h = hyperstyles(React.createElement, exampleStyles);
+
+	Thing = React.createClass({
+	    render: function () {
+	        return React.createElement('div');
+	    }
+	});
+
+	t.plan(23);
+
+	t.deepEqual(
+		h('div'),
+		React.createElement('div')
+	);
+
+	t.deepEqual(
+		h('div', null, [h('div')]),
+		React.createElement('div', null, [React.createElement('div')])
+	);
+
+	t.deepEqual(
+		h('div', null, h('div')),
+		React.createElement('div', null, React.createElement('div'))
+	);
 
 	t.equal(
-		h('div').type,
-		reactCreateElement('div').type
+	    h('div', null, [h('div'), h('div')]).props.children.length,
+	    2
+	);
+
+	t.equal(
+	    h('div', null, h('div'), h('div')).props.children.length,
+	    2
+	);
+
+	t.deepEqual(
+		h('div', null, [h('div'), h('div')]),
+		React.createElement('div', null, [React.createElement('div'), React.createElement('div')])
+	);
+
+	t.deepEqual(
+		h('div', null, h('div'), h('div')),
+		React.createElement('div', null, React.createElement('div'), React.createElement('div'))
 	);
 
 	t.equal(
 		h('div', exampleProperties).props.id,
-		reactCreateElement('div', exampleProperties).props.id
+		React.createElement('div', exampleProperties).props.id
 	);
 
 	t.equal(
 		h('div', exampleProperties).props.className,
-		reactCreateElement('div', exampleProperties).props.className
+		React.createElement('div', exampleProperties).props.className
 	);
 
 	t.deepEqual(
 		h('div', null, exampleChildren).props.children,
-		reactCreateElement('div', null, exampleChildren).props.children
+		React.createElement('div', null, exampleChildren).props.children
 	);
 
 	t.equal(
 		h('div', exampleProperties, exampleChildren).props.id,
-		reactCreateElement('div', exampleProperties, exampleChildren).props.id
+		React.createElement('div', exampleProperties, exampleChildren).props.id
 	);
 
 	t.equal(
 		h('div', exampleProperties, exampleChildren).props.className,
-		reactCreateElement('div', exampleProperties, exampleChildren).props.className
+		React.createElement('div', exampleProperties, exampleChildren).props.className
 	);
 
 	t.deepEqual(
 		h('div', exampleProperties, exampleChildren).props.children,
-		reactCreateElement('div', exampleProperties, exampleChildren).props.children
+		React.createElement('div', exampleProperties, exampleChildren).props.children
 	);
 
 	t.equal(
 		h('div.thing').props.className,
-		reactCreateElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
+		React.createElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
 	);
 
 	t.equal(
 		h('div#x.thing').props.className,
-		reactCreateElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
+		React.createElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
 	);
 
 	t.equal(
 		h('div.thing', {className: 'blah'}).props.className,
-		reactCreateElement('div', {className: 'blah thing__gf7sdfg78ds'}).props.className
+		React.createElement('div', {className: 'blah thing__gf7sdfg78ds'}).props.className
 	);
 
 	t.equal(
 		h('div', {styleName: 'thing'}).props.className,
-		reactCreateElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
+		React.createElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
 	);
 
 	t.equal(
 		h('div', {styleName: 'thing', className: 'blah'}).props.className,
-		reactCreateElement('div', {className: 'blah thing__gf7sdfg78ds'}).props.className
+		React.createElement('div', {className: 'blah thing__gf7sdfg78ds'}).props.className
+	);
+
+	t.deepEqual(
+		h(Thing),
+		React.createElement(Thing)
+	);
+
+	t.deepEqual(
+		h(Thing, null, h('div')),
+		React.createElement(Thing, null, React.createElement('div'))
+	);
+
+	t.deepEqual(
+		h(Thing, null, h('div', {styleName: 'thing'})),
+		React.createElement(Thing, null, React.createElement('div', {className: 'thing__gf7sdfg78ds'}))
+	);
+
+	t.deepEqual(
+		h(Thing, {styleName: 'thing'}, h('div')),
+		React.createElement(Thing, {className: 'thing__gf7sdfg78ds'}, React.createElement('div'))
+	);
+
+	t.deepEqual(
+		h(Thing, {styleName: 'thing'}, h('div', {styleName: 'thing'})),
+		React.createElement(Thing, {className: 'thing__gf7sdfg78ds'}, React.createElement('div', {className: 'thing__gf7sdfg78ds'}))
 	);
 });
 
 test('hyperscript', function (t) {
 	var h = hyperstyles(hyperscript)(exampleStyles);
 
-	t.plan(12);
+	t.plan(16);
 
 	t.equal(
 		h('div').nodeName,
@@ -306,6 +368,26 @@ test('hyperscript', function (t) {
 	t.equal(
 		h('div', exampleProperties).className,
 		hyperscript('div', exampleProperties).className
+	);
+
+	t.equal(
+	    h('div', [h('div'), h('div')]).childNodes.length,
+	    2
+	);
+
+	t.equal(
+	    h('div', h('div'), h('div')).childNodes.length,
+	    2
+	);
+
+	t.equal(
+		h('div', [h('div'), h('div')]).childNodes[1].nodeName,
+		hyperscript('div', [hyperscript('div'), hyperscript('div')]).childNodes[1].nodeName
+	);
+
+	t.equal(
+		h('div', h('div'), h('div')).childNodes[1].nodeName,
+		hyperscript('div', hyperscript('div'), hyperscript('div')).childNodes[1].nodeName
 	);
 
 	t.deepEqual(

@@ -1,5 +1,7 @@
 var transform = require('./transform');
 
+var slice = Array.prototype.slice;
+
 function hyperstyles(hyperscript, styles) {
     if (typeof hyperscript !== 'function') {
         throw new Error('Expected a hyperscript-compatible function as the first argument.');
@@ -19,8 +21,12 @@ function hyperstyles(hyperscript, styles) {
 }
 
 function wrap(hyperscript, styles) {
-    return function wrapped(tagName, properties, children) {
-        return hyperscript.apply(null, transform(styles, tagName, properties, children));
+    return function wrapped() {
+        var args = slice.call(arguments);
+
+        args.unshift(styles);
+
+        return hyperscript.apply(null, transform.apply(null, args));
     }
 }
 
