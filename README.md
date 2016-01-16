@@ -6,6 +6,8 @@ Transparently apply [CSS Modules](https://github.com/css-modules/css-modules) to
 $ npm install hyperstyles
 ```
 
+Here's a quick example using `virtual-hyperscript` in ES2015:
+
 ```js
 import vh from 'virtual-dom/h';
 import hyperstyles from 'hyperstyles';
