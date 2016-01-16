@@ -7,14 +7,27 @@ $ npm install hyperstyles
 ```
 
 ```js
-var h = require('hyperstyles')(require('virtual-dom/h'), require('./car.css'));
+import vh from 'virtual-dom/h';
+import hyperstyles from 'hyperstyles';
+import styles from './car.css';
 
-module.exports = function render() {
+const h = hyperstyles(vh, styles);
+
+export default function render() {
     return h('div.root', [
         h('div.front-door'),
         h('div.back-door')
     ]);
 }
+```
+
+When rendered, the following markup will be produced:
+
+```html
+<div class="Car__root___hHwf0">
+    <div class="Car__front-door___i3N9f"></div>
+    <div class="Car__back-door___27Guk"></div>
+</div>
 ```
 
 ## Usage
@@ -26,37 +39,19 @@ To use CSS Modules, you'll need to set up your module bundler to load [Interoper
 
 Once your build process is configured you can use *hyperstyles*!
 
-In ES2015, using `virtual-hyperscript`:
-
-```js
-import vh from 'virtual-dom/h';
-import styles from './car.css';
-import hyperstyles from 'hyperstyles';
-
-const h = hyperstyles(vh, styles);
-
-function render() {
-    return h('div', {styleName: 'root'}, [
-        h('div', {styleName: 'front-door'}),
-        h('div', {styleName: 'back-door'})
-    ]);
-}
-
-export default render;
-```
-
-In JSX, using `React.createElement`:
+### ES2015 (JSX), using `React.createElement`:
 
 ```jsx
 /** @jsx h */
 
-var React = require('react');
-var styles = require('./car.css');
-var hyperstyles = require('hyperstyles');
-var h = hyperstyles(React.createElement, styles);
+import React from 'react';
+import styles from './car.css';
+import hyperstyles from 'hyperstyles';
 
-var Car = React.createClass({
-    render: function () {
+const h = hyperstyles(React.createElement, styles);
+
+export default class Car extends React.Component {
+    render () {
         return (
             <div styleName="root">
                 <div styleName="front-door"></div>
@@ -65,16 +60,33 @@ var Car = React.createClass({
         );
     }
 });
-
-module.exports = Car;
 ```
 
-In ES5, using `React.createElement`:
+Note that we use the `styleName` property instead of `className` to denote classes we want to replace using the CSS module. You can use them together and `className`s will remain as they are, with `styleName`s appended.
+
+### ES5, using `virtual-hyperscript`:
+
+```js
+var hyperstyles = require('hyperstyles');
+var styles = require('./car.css');
+
+var h = hyperstyles(require('virtual-dom/h'), styles);
+
+module.exports = function render() {
+    return h('div.root', [
+        h('div.front-door'),
+        h('div.back-door')    // or: h('div', {styleName: 'back-door'})
+    ]);
+}
+```
+
+### ES5, using `React.createElement`:
 
 ```js
 var React = require('react');
 var styles = require('./car.css');
 var hyperstyles = require('hyperstyles');
+
 var h = hyperstyles(React.createElement, styles);
 
 var Car = React.createClass({
@@ -89,38 +101,83 @@ var Car = React.createClass({
 module.exports = Car;
 ```
 
-Note that we use the `styleName` property instead of `className` to denote classes we want to replace from the CSS module. You can use them together and `classNames`s will remain as they are, with `styleName`s appended.
+## Tips
 
-### Partial application
+Here's a couple of ways to get the most out of hyperstyles
+
+### Tip A: Use partial application
 
 If you just supply a single argument (a hyperscript-compatible function) to hyperstyles, it'll return a function which you can then call multiple times with different CSS modules to create multiple wrapped functions.
 
+In `hyper.js`:
+
 ```js
-var vh = require('virtual-dom/virtual-hyperscript');
-var hyper = require('hyperstyles')(vh);
-var hCar = hyper(require('./car.css'));
-var hBike = hyper(require('./bike.css'));
+import hyperstyles from 'hyperstyles';
+import h from 'virtual-dom/h';
 
-function renderCar() {
-    return hCar('div.root', [
-        hCar('div.front-door'),
-        hCar('div.back-door')
-    ]);
-}
+export default hyperstyles(h);
+```
 
-function renderBike() {
-    return hBike('div.root', [
-        hBike('div.front-wheel'),
-        hBike('div.back-wheel')
+In `car.js`:
+
+```js
+import hyper from './hyper';
+import styles from './car.css';
+
+const h = hyper(styles);
+
+export default function render() {
+    return h('div.root', [
+        h('div.front-door'),
+        h('div.back-door')
     ]);
 }
 ```
 
-This is useful if you expose your partially applied function as a module, which each of your components can include and call with their own styles.
+In `bike.js`:
 
-### `tagName` shorthand
+```js
+import hyper from './hyper';
+import styles from './car.css';
 
-You can use the `tagName` shorthand (as demonstrated in the first example) to quickly set the `id` and `className` properties on the node you are creating. Any CSS classes you put the shorthand format will be treated as if you passed them in as the `styleName` property rather than the `className` property, and as such, will be transformed by hyperstyles. The shorthand will even work with React, as long as you're not using JSX.
+const h = hyper(styles);
+
+export default function render() {
+    return h('div.root', [
+        h('div.front-wheel'),
+        h('div.back-wheel')
+    ]);
+}
+```
+
+### Tip B: Use the `tagName` shorthand
+
+You can use the `tagName` className shorthand (as demonstrated in the first example) as an alternative to setting the `styleName` property. The shorthand will even work with React, as long as you're not using JSX.
+
+Any CSS classes you write in the shorthand format will be transformed into the `className` property by hyperstyles, even if you didn't pass any properties in. If your underlying DOM creation function also recognises this kind of shorthand, you can safely include your desired element `id`, which will be passed through once hyperstyles has transformed the classNames.
+
+Here's what would happen during the transform:
+
+| In                                     | Out                                            |
+|----------------------------------------|------------------------------------------------|
+| `['div']`                              | `['div']`                                      |
+| `['div.things']`                       | `['div', {className: 'things__r489jf'}]`       |
+| `['div.things', {className: 'stuff'}]` | `['div', {className: 'stuff things__r489jf'}]` |
+| `['div.things#stuff']`                 | `['div#stuff', {className: 'things__r489jf'}]` |
+
+## Tests
+
+```
+$ npm test
+```
+
+There are currently tests to ensure hyperstyles is compatible with the following utilities:
+
+* [React](https://github.com/facebook/react)
+* [virtual-hyperscript](https://github.com/Matt-Esch/virtual-dom/tree/master/virtual-hyperscript)
+* [hyperscript](https://github.com/dominictarr/hyperscript)
+
+It has also been succesfully used with [crel](https://github.com/KoryNunn/crel), which cannot be tested outside a browser environment.
 
 ## License
 
