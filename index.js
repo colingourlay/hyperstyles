@@ -22,11 +22,7 @@ function hyperstyles(hyperscript, styles) {
 
 function wrap(hyperscript, styles) {
     return function wrapped() {
-        var args = slice.call(arguments);
-
-        args.unshift(styles);
-
-        return hyperscript.apply(null, transform.apply(null, args));
+        return hyperscript.apply(null, transform(styles, slice.call(arguments)));
     }
 }
 

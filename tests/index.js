@@ -16,27 +16,27 @@ test('transform:pass-through', function (t) {
 	t.plan(5);
 
 	t.equal(
-		transform(exampleStyles, 'div')[1],
+		transform(exampleStyles, ['div'])[1],
 		undefined
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div', exampleProperties)[1].id,
+		transform(exampleStyles, ['div', exampleProperties])[1].id,
 		'x'
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div', exampleChildren)[1],
+		transform(exampleStyles, ['div', exampleChildren])[1],
 		'text'
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div', exampleProperties, exampleChildren)[1].id,
+		transform(exampleStyles, ['div', exampleProperties, exampleChildren])[1].id,
 		'x'
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div', exampleProperties, exampleChildren)[2],
+		transform(exampleStyles, ['div', exampleProperties, exampleChildren])[2],
 		'text'
 	);
 });
@@ -45,17 +45,17 @@ test('transform:properties', function (t) {
 	t.plan(3);
 
 	t.equal(
-		transform(exampleStyles, 'div', {className: 'thing'})[1].className,
+		transform(exampleStyles, ['div', {className: 'thing'}])[1].className,
 		'thing'
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div', {styleName: 'thing'})[1].className,
+		transform(exampleStyles, ['div', {styleName: 'thing'}])[1].className,
 		'thing__gf7sdfg78ds'
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div', {className: 'blah', styleName: 'thing'})[1].className,
+		transform(exampleStyles, ['div', {className: 'blah', styleName: 'thing'}])[1].className,
 		'blah thing__gf7sdfg78ds'
 	);
 });
@@ -66,14 +66,14 @@ test('transform:tagName', function (t) {
 	t.plan(6);
 
 	t.throws(function () {
-		transform(exampleStyles, 'div.blah');
+		transform(exampleStyles, ['div.blah']);
 	});
 
 	t.doesNotThrow(function () {
-		transform(exampleStyles, 'div.thing');
+		transform(exampleStyles, ['div.thing']);
 	});
 
-	output = transform(exampleStyles, 'div.thing#x');
+	output = transform(exampleStyles, ['div.thing#x']);
 
 	t.equal(
 		output[0],
@@ -86,12 +86,12 @@ test('transform:tagName', function (t) {
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div.thing', {className: 'blah'})[1].className,
+		transform(exampleStyles, ['div.thing', {className: 'blah'}])[1].className,
 		'blah thing__gf7sdfg78ds'
 	);
 
 	t.equal(
-		transform(exampleStyles, 'div.thing', {className: 'blah', styleName: 'thing'})[1].className,
+		transform(exampleStyles, ['div.thing', {className: 'blah', styleName: 'thing'}])[1].className,
 		'blah thing__gf7sdfg78ds thing__gf7sdfg78ds'
 	);
 });

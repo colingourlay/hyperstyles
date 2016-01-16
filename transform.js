@@ -27,11 +27,9 @@ function isNotProps(x) {
 
 var CLASS_SELECTOR = /\.([a-zA-Z0-9\u007F-\uFFFF_:-]+)/g;
 
-function transform() {
-    var args, styles, styleNames, parseMatch;
+function transform(styles, args) {
+    var styleNames, parseMatch;
 
-    args = slice.call(arguments);
-    styles = args.shift();
     styleNames = [];
 
     if (isString(args[0])) {
