@@ -21,7 +21,7 @@ function isNotProps(x) {
         (isObject(x) && (
             /* ReactElement */ x.hasOwnProperty('$$typeof') ||
             /* VirtualNode  */ (x.hasOwnProperty('type') && x.hasOwnProperty('version')) ||
-            /* Element      */ x.hasOwnProperty('tagName')
+            /* Node         */ x instanceof Node
         ));
 }
 
