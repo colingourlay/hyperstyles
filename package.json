@@ -4,7 +4,7 @@
   "description": "Transparently apply CSS Modules to hyperscript-compatible DOM builders, such as virtual-hyperscript and React.",
   "main": "index.js",
   "scripts": {
-    "test": "tape tests"
+    "test": "tape tests/*.js tests/**/index.js"
   },
   "keywords": [
     "css-modules",
