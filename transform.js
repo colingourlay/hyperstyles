@@ -1,4 +1,3 @@
-var slice = Array.prototype.slice;
 var toString = Object.prototype.toString;
 var isString = function (x) {
     return typeof x === 'string';
@@ -19,9 +18,12 @@ function isNotProps(x) {
         typeof x === 'function' ||
         isArray(x) ||
         (isObject(x) && (
-            /* ReactElement */ x.hasOwnProperty('$$typeof') ||
-            /* VirtualNode  */ (x.hasOwnProperty('type') && x.hasOwnProperty('version')) ||
-            /* Node         */ x instanceof Node
+            // ReactElement
+            x.hasOwnProperty('$$typeof') ||
+            // VirtualNode
+            (x.hasOwnProperty('type') && x.hasOwnProperty('version')) ||
+            // Node
+            (typeof Node !== 'undefined' && x instanceof Node)
         ));
 }
 
@@ -62,7 +64,7 @@ function transform(styles, args) {
 
         args[1].className = styleNames.reduce(function (className, styleName) {
             if (!styles[styleName]) {
-                throw new Error('"' + styleName + '" doesn\'t exist in this CSS Module');
+                throw new Error('"' + styleName + '" doesn\'t exist');
             }
 
             className += (className.length ? ' ' : '') + styles[styleName];
