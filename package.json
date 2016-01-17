@@ -8,9 +8,11 @@
   },
   "keywords": [
     "css-modules",
+    "hyperscript",
+    "react",
     "virtual-hyperscript",
     "virtual-dom",
-    "react",
+    "hyperx",
     "icss"
   ],
   "author": "Colin Gourlay",
@@ -21,8 +23,12 @@
   },
   "devDependencies": {
     "hyperscript": "^1.4.7",
+    "hyperx": "^1.0.4",
     "react": "^0.14.6",
     "tape": "^4.2.0",
     "virtual-dom": "^2.1.1"
+  },
+  "dependencies": {
+    "hyperx": "^1.0.4"
   }
 }

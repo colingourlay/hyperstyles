@@ -103,6 +103,25 @@ var Car = React.createClass({
 module.exports = Car;
 ```
 
+### ES5+2015, using [`hyperx`](https://github.com/substack/hyperx) + `virtual-hyperscript`:
+
+```js
+var h = require('virtual-dom/h')
+var hyperx = require('hyperx');
+var hyperstyles = require('hyperstyles');
+var styles = require('./car.css');
+
+var hx = hyperx(hyperstyles(h, styles));
+
+module.exports = function render() {
+  return hx`<div styleName="root">
+        <div styleName="front-door"></div>
+        <div styleName="back-door"></div>
+    </div>`;
+};
+```
+
+
 ## Tips
 
 Here's a couple of ways to get the most out of hyperstyles
@@ -177,6 +196,7 @@ There are currently tests to ensure hyperstyles is compatible with the following
 
 * [React](https://github.com/facebook/react)
 * [virtual-hyperscript](https://github.com/Matt-Esch/virtual-dom/tree/master/virtual-hyperscript)
+* [hyperx](https://github.com/substack/hyperx) (wrapping virtual-hyperscript or React)
 * [hyperscript](https://github.com/dominictarr/hyperscript)
 
 It has also been succesfully used with [crel](https://github.com/KoryNunn/crel), which cannot be tested outside a browser environment.
