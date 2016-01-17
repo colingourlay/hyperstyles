@@ -27,6 +27,5 @@
     "react": "^0.14.6",
     "tape": "^4.2.0",
     "virtual-dom": "^2.1.1"
-  },
-  "dependencies": {}
+  }
 }
