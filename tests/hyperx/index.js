@@ -33,16 +33,16 @@ test('hyperx + virtual-hyperscript', function (t) {
 
     t.equal(
         hsx`<div styleName="thing"></div>`.properties.className,
-        hx`<div className="thing__gf7sdfg78ds"></div>`.properties.className
+        hx`<div className="${common.styles.thing}"></div>`.properties.className
     );
 
     t.equal(
         hsx`<div id="x" styleName="thing"></div>`.properties.className,
-        hx`<div id="x" className="thing__gf7sdfg78ds"></div>`.properties.className
+        hx`<div id="x" className="${common.styles.thing}"></div>`.properties.className
     );
 
     t.equal(
         hsx`<div styleName="thing" className="blah"></div>`.properties.className,
-        hx`<div className="blah thing__gf7sdfg78ds"></div>`.properties.className
+        hx`<div className="blah ${common.styles.thing}"></div>`.properties.className
     );
 });

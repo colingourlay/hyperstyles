@@ -66,26 +66,26 @@ test('hyperscript', function (t) {
 
     t.equal(
         h('div.thing').className,
-        hyperscript('div', {className: 'thing__gf7sdfg78ds'}).className
+        hyperscript('div', {className: common.styles.thing}).className
     );
 
     t.equal(
         h('div#x.thing').className,
-        hyperscript('div', {className: 'thing__gf7sdfg78ds'}).className
+        hyperscript('div', {className: common.styles.thing}).className
     );
 
     t.equal(
         h('div.thing', {className: 'blah'}).className,
-        hyperscript('div', {className: 'blah thing__gf7sdfg78ds'}).className
+        hyperscript('div', {className: 'blah ' + common.styles.thing}).className
     );
 
     t.equal(
         h('div', {styleName: 'thing'}).className,
-        hyperscript('div', {className: 'thing__gf7sdfg78ds'}).className
+        hyperscript('div', {className: common.styles.thing}).className
     );
 
     t.equal(
         h('div', {styleName: 'thing', className: 'blah'}).className,
-        hyperscript('div', {className: 'blah thing__gf7sdfg78ds'}).className
+        hyperscript('div', {className: 'blah ' + common.styles.thing}).className
     );
 });

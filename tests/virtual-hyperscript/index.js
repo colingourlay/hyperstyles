@@ -47,47 +47,47 @@ test('virtual-hyperscript', function (t) {
 
     t.equal(
         h('div.thing').properties.className,
-        virtualHyperscript('div', {className: 'thing__gf7sdfg78ds'}).properties.className
+        virtualHyperscript('div', {className: common.styles.thing}).properties.className
     );
 
     t.equal(
         h('div#x.thing').properties.className,
-        virtualHyperscript('div', {className: 'thing__gf7sdfg78ds'}).properties.className
+        virtualHyperscript('div', {className: common.styles.thing}).properties.className
     );
 
     t.equal(
         h('div.thing', {className: 'blah'}).properties.className,
-        virtualHyperscript('div', {className: 'blah thing__gf7sdfg78ds'}).properties.className
+        virtualHyperscript('div', {className: 'blah ' + common.styles.thing}).properties.className
     );
 
     t.equal(
         h('div', {styleName: 'thing'}).properties.className,
-        virtualHyperscript('div', {className: 'thing__gf7sdfg78ds'}).properties.className
+        virtualHyperscript('div', {className: common.styles.thing}).properties.className
     );
 
     t.equal(
         h('div', {styleName: 'thing', className: 'blah'}).properties.className,
-        virtualHyperscript('div', {className: 'blah thing__gf7sdfg78ds'}).properties.className
+        virtualHyperscript('div', {className: 'blah ' + common.styles.thing}).properties.className
     );
 });
 
 test('virtual-hyperscript (partial application)', function (t) {
-    var partialHyperstyles, hA, hB;
+    var partialHyperstyles, h, hAlt;
 
     t.plan(2);
 
     partialHyperstyles = hyperstyles(virtualHyperscript);
-    hA = partialHyperstyles(common.styles);
-    hB = partialHyperstyles(common.stylesB);
+    h = partialHyperstyles(common.styles);
+    hAlt = partialHyperstyles(common.stylesAlt);
 
     t.equal(
-        hA('div.thing').properties.className,
-        virtualHyperscript('div', {className: 'thing__gf7sdfg78ds'}).properties.className
+        h('div.thing').properties.className,
+        virtualHyperscript('div', {className: common.styles.thing}).properties.className
     );
 
     t.equal(
-        hB('div.stuff').properties.className,
-        virtualHyperscript('div', {className: 'stuff__ifd8h3hjdhf'}).properties.className
+        hAlt('div.thing').properties.className,
+        virtualHyperscript('div', {className: common.stylesAlt.thing}).properties.className
     );
 });
 
@@ -98,6 +98,6 @@ test('virtual-hyperscript/svg', function (t) {
 
     t.equal(
         h('svg.thing').properties.className,
-        virtualHyperscriptSVG('svg', {className: 'thing__gf7sdfg78ds'}).properties.className
+        virtualHyperscriptSVG('svg', {className: common.styles.thing}).properties.className
     );
 });

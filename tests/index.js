@@ -42,12 +42,12 @@ test('hyperstyles transform properties', function (t) {
 
     t.equal(
         transform(common.styles, ['div', {styleName: 'thing'}])[1].className,
-        'thing__gf7sdfg78ds'
+        common.styles.thing
     );
 
     t.equal(
         transform(common.styles, ['div', {className: 'blah', styleName: 'thing'}])[1].className,
-        'blah thing__gf7sdfg78ds'
+        'blah ' + common.styles.thing
     );
 });
 
@@ -73,17 +73,17 @@ test('hyperstyles transform tagName', function (t) {
 
     t.equal(
         output[1].className,
-        'thing__gf7sdfg78ds'
+        common.styles.thing
     );
 
     t.equal(
         transform(common.styles, ['div.thing', {className: 'blah'}])[1].className,
-        'blah thing__gf7sdfg78ds'
+        'blah ' + common.styles.thing
     );
 
     t.equal(
         transform(common.styles, ['div.thing', {className: 'blah', styleName: 'thing'}])[1].className,
-        'blah thing__gf7sdfg78ds thing__gf7sdfg78ds'
+        'blah ' + common.styles.thing + ' ' + common.styles.thing
     );
 });
 

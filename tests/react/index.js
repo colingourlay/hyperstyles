@@ -84,27 +84,27 @@ test('react', function (t) {
 
     t.equal(
         h('div.thing').props.className,
-        React.createElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
+        React.createElement('div', {className: common.styles.thing}).props.className
     );
 
     t.equal(
         h('div#x.thing').props.className,
-        React.createElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
+        React.createElement('div', {className: common.styles.thing}).props.className
     );
 
     t.equal(
         h('div.thing', {className: 'blah'}).props.className,
-        React.createElement('div', {className: 'blah thing__gf7sdfg78ds'}).props.className
+        React.createElement('div', {className: 'blah ' + common.styles.thing}).props.className
     );
 
     t.equal(
         h('div', {styleName: 'thing'}).props.className,
-        React.createElement('div', {className: 'thing__gf7sdfg78ds'}).props.className
+        React.createElement('div', {className: common.styles.thing}).props.className
     );
 
     t.equal(
         h('div', {styleName: 'thing', className: 'blah'}).props.className,
-        React.createElement('div', {className: 'blah thing__gf7sdfg78ds'}).props.className
+        React.createElement('div', {className: 'blah ' + common.styles.thing}).props.className
     );
 
     t.deepEqual(
@@ -119,16 +119,16 @@ test('react', function (t) {
 
     t.deepEqual(
         h(Thing, null, h('div', {styleName: 'thing'})),
-        React.createElement(Thing, null, React.createElement('div', {className: 'thing__gf7sdfg78ds'}))
+        React.createElement(Thing, null, React.createElement('div', {className: common.styles.thing}))
     );
 
     t.deepEqual(
         h(Thing, {styleName: 'thing'}, h('div')),
-        React.createElement(Thing, {className: 'thing__gf7sdfg78ds'}, React.createElement('div'))
+        React.createElement(Thing, {className: common.styles.thing}, React.createElement('div'))
     );
 
     t.deepEqual(
         h(Thing, {styleName: 'thing'}, h('div', {styleName: 'thing'})),
-        React.createElement(Thing, {className: 'thing__gf7sdfg78ds'}, React.createElement('div', {className: 'thing__gf7sdfg78ds'}))
+        React.createElement(Thing, {className: common.styles.thing}, React.createElement('div', {className: common.styles.thing}))
     );
 });
